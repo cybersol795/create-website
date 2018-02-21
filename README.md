@@ -1,4 +1,4 @@
-# Setting up a website from scratch to use HTTPS, Nginx as a Web-server, Namecheap for domain purchasing and ssl certificate
+# Setting up a website from scratch to use HTTPS with Nginx as a Web-server, Namecheap for domain purchasing and letsencrypt for ssl certificate
   
  * To set-up a website from scratch to without having to make any purchases [except for the server that will host your website], follow Steps 1 and 2. This will leave you with only an IP address and not FQDN [ie google.com, amazon.ca, etc] to access your website  
  * To set-up a website from scratch and also purcahse and set up an FQDN, follow Steps 1, 2 and 3  
@@ -38,10 +38,10 @@ sudo systemctl restart nginx
   
 Please note that AWS provides an extra layer of protection for any instances[aka VMs] that you spin up. To modify the protection to suit your needs, you will need to modify the *Security Group* that has been assigned to the instance you are setting up the website on.  
   
-Step I. ![Go to AWS Console](console.aws.amazon.com/ec2)
-Step II. Select the Instance you are setting the website on ![Selecting Instance](Picture 1.png)
-Step III. Click on the Security Group indicated on the box ![Selecting Security Group](Picture 2.png)
-Step IV. Make sure that the rules listed under the "Inbound" Tabs include the ones in the picture here. If not, please add them exactly as shown. ![Inbound Rules](Picture 3.png)
+Step I. ![Go to AWS Console](console.aws.amazon.com/ec2)  
+Step II. Select the Instance you are setting the website on ![Selecting Instance](Picture 1.png)  
+Step III. Click on the Security Group indicated on the box ![Selecting Security Group](Picture 2.png)  
+Step IV. Make sure that the rules listed under the "Inbound" Tabs include the ones in the picture here. If not, please add them exactly as shown. ![Inbound Rules](Picture 3.png)  
 
 ## Step 2: Configuring Nginx  
 You will need to edit a file called the Nginx virtual hosts file. We will be editing this file in order to instruct nginx as to  
