@@ -39,8 +39,11 @@ sudo systemctl restart nginx
 Please note that AWS provides an extra layer of protection for any instances[aka VMs] that you spin up. To modify the protection to suit your needs, you will need to modify the *Security Group* that has been assigned to the instance you are setting up the website on.  
   
   1.a.I. [Go to AWS Console](https://console.aws.amazon.com/ec2)  
+
   1.a.II. Select the Instance you are setting the website on ![Selecting Instance](Picture%201.png)  
+
   1.a.III. Click on the Security Group indicated on the box ![Selecting Security Group](Picture%202.png)  
+  
   1.a.IV. Make sure that the rules listed under the "Inbound" Tabs include the ones in the picture here. If not, please add them exactly as shown. ![Inbound Rules](Picture%203.png)  
 
 ## Step 2: Configuring Nginx  
