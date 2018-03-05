@@ -19,36 +19,26 @@ Prereq questions you may have:
  * [What is ufw?](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29)  
 
 ```shell
-# Installing Nginx and UFW
-admin@ip-172-31-72-60:~$ **sudo apt-get install -y nginx ufw**
 
-# ensuring that the server will allow HTTP requests
-admin@ip-172-31-72-60:~$ **sudo ufw allow "Nginx HTTP"**
-Rules updated
-Rules updated (v6)
+admin@ip-172-31-72-60:~$ sudo apt-get install -y nginx ufw # Installing Nginx and UFW
 
-# ensuring that the server will allow ssh connections
-admin@ip-172-31-72-60:~$ **sudo ufw allow ssh**
+
+admin@ip-172-31-72-60:~$ sudo ufw allow "Nginx HTTP" # ensuring that the server will allow HTTP requests
 Rules updated
 Rules updated (v6)
 
 
+admin@ip-172-31-72-60:~$ sudo ufw allow ssh # ensuring that the server will allow ssh connections
+Rules updated
+Rules updated (v6)
 
+# Setting up UFW
 
-
-
-
-
-
-
-
-# Enable UFW on Server
-
-admin@ip-172-31-72-60:~$ **sudo systemctl enable ufw** #Ensures that ufw will be started at the next boot automatically
+admin@ip-172-31-72-60:~$ sudo systemctl enable ufw # Ensures that ufw will be started at the next boot automatically
 Synchronizing state of ufw.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable ufw
-admin@ip-172-31-72-60:~$ **sudo systemctl start ufw**
-admin@ip-172-31-72-60:~$ **sudo systemctl status ufw**
+admin@ip-172-31-72-60:~$ sudo systemctl start ufw
+admin@ip-172-31-72-60:~$ sudo systemctl status ufw
 ● ufw.service - Uncomplicated firewall
    Loaded: loaded (/lib/systemd/system/ufw.service; enabled; vendor preset: enabled)
    Active: active (exited) since Mon 2018-03-05 08:44:24 UTC; 8s ago
@@ -58,10 +48,10 @@ admin@ip-172-31-72-60:~$ **sudo systemctl status ufw**
 
 Mar 05 08:44:24 ip-172-31-72-60 systemd[1]: Starting Uncomplicated firewall...
 Mar 05 08:44:24 ip-172-31-72-60 systemd[1]: Started Uncomplicated firewall.
-admin@ip-172-31-72-60:~$ **sudo ufw enable** # it sets some internal state... it's tripped me before.
+admin@ip-172-31-72-60:~$ sudo ufw enable # it sets some internal state... it's tripped me before.
 Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
 Firewall is active and enabled on system startup
-admin@ip-172-31-72-60:~$ **sudo ufw status** # ensuring that the rules we wanted are implemented
+admin@ip-172-31-72-60:~$ sudo ufw status # ensuring that the rules we wanted are implemented
 Status: active
 
 To                         Action      From
@@ -71,7 +61,7 @@ Nginx HTTP                 ALLOW       Anywhere
 Nginx HTTP (v6)            ALLOW       Anywhere (v6)             
 22/tcp (v6)                ALLOW       Anywhere (v6)             
 
-admin@ip-172-31-72-60:~$ **systemctl status nginx** # determining status of nginx
+admin@ip-172-31-72-60:~$ systemctl status nginx # determining status of nginx
 ● nginx.service - A high performance web server and a reverse proxy server
    Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
    Active: active (running) since Mon 2018-03-05 08:43:08 UTC; 2min 12s ago
@@ -101,11 +91,9 @@ Please note that AWS provides an extra layer of protection for any instances[aka
   
   1.a.I. [Go to AWS Console](https://console.aws.amazon.com/ec2)  
 
-  1.a.II. Select the Instance you are setting the website on ![Selecting Instance](Picture%201.png)  
+  1.a.II. Select the Instance you are setting the website on and click on the Security Group indicated in the box ![Selecting Instance](Picture%201.jpg)  
 
-  1.a.III. Click on the Security Group indicated on the box ![Selecting Security Group](Picture%202.png)  
-  
-  1.a.IV. Make sure that the rules listed under the "Inbound" Tabs include the ones in the picture here. If not, please add them exactly as shown. ![Inbound Rules](Picture%203.jpg)  
+  1.a.III. Make sure that the rules listed under the "Inbound" Tabs include the ones in the picture here. If not, please add them exactly as shown. ![Inbound Rules](Picture%202.jpg)  
 
 ## Step 2: Configuring Nginx  
 You will need to edit a file called the Nginx virtual hosts file. We will be editing this file in order to instruct nginx as to  
@@ -149,7 +137,7 @@ systemctl status nginx #checking status of nginx
 ```
 
 You can now access the webpage at the Public IP/DNS of your machine which can be found on AWS like so:
-![Public IP/DNS Name](Picture%204.jpg)  
+![Public IP/DNS Name](Picture%203.jpg)  
   
 ## Step 3: Buying a domain
 This section just requires you to buy a FQDN [Fully Qualified Domain Name] such as google.com, amazon.ca, reddit.com, etc.  
@@ -163,7 +151,7 @@ Two popular places to buy a domain name from are Namecheap and GoDaddy. More opt
 *Please note that after this step, it may take a while for it to work as you will have to wait for [1] Namecheap to register the I.P. address that you gave it with the domain you purchased as well as [2] waiting for the DNS that your computer queries to determine the IP address associated with a domain to be updated to reflect the change. Step 2 may take a while [up to an hour] just based on how the DNS that your computer qwueries has been set-up to refresh its cache.*  
   
 Here is the bare minimum you need to configure to be able to access your new website via NameCheap
-![NameCheap DNS Configuration](Picture%205.jpg)
+![NameCheap DNS Configuration](Picture%204.jpg)
 
 
 ## Step 4: Obtaining an SSL Certificate using Letsencrypt
@@ -179,7 +167,7 @@ cat /etc/nginx/sites-available/default  | grep root
 
 Known Issues and how to resolve them:
 ```shell
-admin@ip-172-31-44-4:~$ sudo apt-get install python-certbot-nginx -t stretch-backports
+admin@ip-172-31-72-60:~$ sudo apt-get install python-certbot-nginx -t stretch-backports
 Reading package lists... Done
 E: The value 'stretch-backports' is invalid for APT::Default-Release as such a release is not available in the sources
 ```
@@ -191,13 +179,11 @@ sudo apt-get update
   
 Example of how to run the command:
 ```shell
-admin@ip-172-31-42-10:~$ sudo certbot --authenticator webroot --installer nginx
+aadmin@ip-172-31-72-60:~$ sudo certbot --authenticator webroot --installer nginx
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Plugins selected: Authenticator webroot, Installer nginx
 Enter email address (used for urgent renewal and security notices) (Enter 'c' to
-cancel):    
-Invalid email address: ###########@gmail.com
-Enter email address (used for urgent renewal and security notices)
+cancel): ###########@gmail.com
 
 -------------------------------------------------------------------------------
 Please read the Terms of Service at
@@ -267,7 +253,21 @@ IMPORTANT NOTES:
  Step 5.a: Configuring ufw to allow HTTPS requests  
   
 ```shell
-sudo ufw allow "Nginx HTTPS"
+admin@ip-172-31-72-60:~$ sudo ufw allow "Nginx HTTPS"
+Rule added
+Rule added (v6)
+admin@ip-172-31-72-60:~$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+Nginx HTTP                 ALLOW       Anywhere                  
+22/tcp                     ALLOW       Anywhere                  
+Nginx HTTPS                ALLOW       Anywhere                  
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)             
+22/tcp (v6)                ALLOW       Anywhere (v6)             
+Nginx HTTPS (v6)           ALLOW       Anywhere (v6)             
+
 ```
 
  Step 5.b: Configure the AWS Security Group to allow HTTPS requests
