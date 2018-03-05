@@ -20,7 +20,7 @@ Prereq questions you may have:
 
 ```shell
 # Installing Nginx and UFW
-sudo apt-get install -y nginx ufw
+admin@ip-172-31-42-185:~$ sudo apt-get install -y nginx ufw
 
 # ensuring that the server will allow HTTP requests
 admin@ip-172-31-42-185:~$ sudo ufw allow "Nginx HTTP"
@@ -34,6 +34,9 @@ Rules updated
 Rules updated (v6)
 
 # Enable UFW on Server
+admin@ip-172-31-42-10:~$ sudo systemctl enable ufw #Ensures that ufw will be started at the next boot automatically
+Synchronizing state of ufw.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable ufw
 admin@ip-172-31-78-96:~$ sudo systemctl start ufw
 admin@ip-172-31-44-4:~$ sudo systemctl status ufw
 ● ufw.service - Uncomplicated firewall
@@ -46,7 +49,7 @@ admin@ip-172-31-44-4:~$ sudo systemctl status ufw
 Mar 05 05:32:31 ip-172-31-44-4 systemd[1]: Starting Uncomplicated firewall...
 Mar 05 05:32:31 ip-172-31-44-4 systemd[1]: Started Uncomplicated firewall.
 
-admin@ip-172-31-44-4:~$ sudo ufw enable
+admin@ip-172-31-44-4:~$ sudo ufw enable # it sets some internal state... it's tripped me before.
 Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
 Firewall is active and enabled on system startup
 
@@ -80,7 +83,7 @@ Mar 05 05:31:36 ip-172-31-44-4 systemd[1]: nginx.service: Failed to read PID fro
 Mar 05 05:31:36 ip-172-31-44-4 systemd[1]: Started A high performance web server and a reverse proxy server.
 
 
-
+Useful Commands
 # starting nginx program if it is not already started
 sudo systemctl start nginx
 
