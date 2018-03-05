@@ -20,41 +20,48 @@ Prereq questions you may have:
 
 ```shell
 # Installing Nginx and UFW
-admin@ip-172-31-42-185:~$ sudo apt-get install -y nginx ufw
+admin@ip-172-31-72-60:~$ **sudo apt-get install -y nginx ufw**
 
 # ensuring that the server will allow HTTP requests
-admin@ip-172-31-42-185:~$ sudo ufw allow "Nginx HTTP"
+admin@ip-172-31-72-60:~$ **sudo ufw allow "Nginx HTTP"**
 Rules updated
 Rules updated (v6)
-
 
 # ensuring that the server will allow ssh connections
-admin@ip-172-31-42-185:~$ sudo ufw allow ssh
+admin@ip-172-31-72-60:~$ **sudo ufw allow ssh**
 Rules updated
 Rules updated (v6)
 
+
+
+
+
+
+
+
+
+
+
 # Enable UFW on Server
-admin@ip-172-31-42-10:~$ sudo systemctl enable ufw #Ensures that ufw will be started at the next boot automatically
+
+admin@ip-172-31-72-60:~$ **sudo systemctl enable ufw** #Ensures that ufw will be started at the next boot automatically
 Synchronizing state of ufw.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable ufw
-admin@ip-172-31-78-96:~$ sudo systemctl start ufw
-admin@ip-172-31-44-4:~$ sudo systemctl status ufw
+admin@ip-172-31-72-60:~$ **sudo systemctl start ufw**
+admin@ip-172-31-72-60:~$ **sudo systemctl status ufw**
 ● ufw.service - Uncomplicated firewall
    Loaded: loaded (/lib/systemd/system/ufw.service; enabled; vendor preset: enabled)
-   Active: active (exited) since Mon 2018-03-05 05:32:31 UTC; 7s ago
+   Active: active (exited) since Mon 2018-03-05 08:44:24 UTC; 8s ago
      Docs: man:ufw(8)
-  Process: 9583 ExecStart=/lib/ufw/ufw-init start quiet (code=exited, status=0/SUCCESS)
- Main PID: 9583 (code=exited, status=0/SUCCESS)
+  Process: 1764 ExecStart=/lib/ufw/ufw-init start quiet (code=exited, status=0/SUCCESS)
+ Main PID: 1764 (code=exited, status=0/SUCCESS)
 
-Mar 05 05:32:31 ip-172-31-44-4 systemd[1]: Starting Uncomplicated firewall...
-Mar 05 05:32:31 ip-172-31-44-4 systemd[1]: Started Uncomplicated firewall.
-
-admin@ip-172-31-44-4:~$ sudo ufw enable # it sets some internal state... it's tripped me before.
+Mar 05 08:44:24 ip-172-31-72-60 systemd[1]: Starting Uncomplicated firewall...
+Mar 05 08:44:24 ip-172-31-72-60 systemd[1]: Started Uncomplicated firewall.
+admin@ip-172-31-72-60:~$ **sudo ufw enable** # it sets some internal state... it's tripped me before.
 Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
 Firewall is active and enabled on system startup
-
-# ensuring that the rules we wanted are implemented
-admin@ip-172-31-44-4:~$ sudo ufw status
+admin@ip-172-31-72-60:~$ **sudo ufw status** # ensuring that the rules we wanted are implemented
 Status: active
 
 To                         Action      From
@@ -62,26 +69,22 @@ To                         Action      From
 Nginx HTTP                 ALLOW       Anywhere                  
 22/tcp                     ALLOW       Anywhere                  
 Nginx HTTP (v6)            ALLOW       Anywhere (v6)             
-22/tcp (v6)                ALLOW       Anywhere (v6)                      
+22/tcp (v6)                ALLOW       Anywhere (v6)             
 
-# determining status of nginx
-admin@ip-172-31-44-4:~$ systemctl status nginx
+admin@ip-172-31-72-60:~$ **systemctl status nginx** # determining status of nginx
 ● nginx.service - A high performance web server and a reverse proxy server
    Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
-   Active: active (running) since Mon 2018-03-05 05:31:36 UTC; 2min 9s ago
+   Active: active (running) since Mon 2018-03-05 08:43:08 UTC; 2min 12s ago
      Docs: man:nginx(8)
-  Process: 9520 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
-  Process: 9518 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
- Main PID: 9522 (nginx)
+ Main PID: 1650 (nginx)
     Tasks: 2 (limit: 4915)
    CGroup: /system.slice/nginx.service
-           ├─9522 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
-           └─9523 nginx: worker process
+           ├─1650 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+           └─1651 nginx: worker process
 
-Mar 05 05:31:36 ip-172-31-44-4 systemd[1]: Starting A high performance web server and a reverse proxy server...
-Mar 05 05:31:36 ip-172-31-44-4 systemd[1]: nginx.service: Failed to read PID from file /run/nginx.pid: Invalid argument
-Mar 05 05:31:36 ip-172-31-44-4 systemd[1]: Started A high performance web server and a reverse proxy server.
-
+Mar 05 08:43:08 ip-172-31-72-60 systemd[1]: Starting A high performance web server and a reverse proxy server...
+Mar 05 08:43:08 ip-172-31-72-60 systemd[1]: nginx.service: Failed to read PID from file /run/nginx.pid: Invalid argument
+Mar 05 08:43:08 ip-172-31-72-60 systemd[1]: Started A high performance web server and a reverse proxy server.
 
 Useful Commands
 # starting nginx program if it is not already started
