@@ -9,7 +9,7 @@
 ## Objectives  
  * To set-up a website from scratch to without having to make any purchases [except for the server that will host your website], follow Steps 1 and 2. This will leave you with only an IP address and no FQDN [ie google.com, amazon.ca, etc] to access your website  
  * To set-up a website from scratch and also purchase and set up an FQDN, follow Steps 1, 2 and 3  
- * To set-up a website from scartch and also purchase and set up an FQDN as well as buy and configure the ssl certificate for allowing HTTPS requests, follow all the steps.  
+ * To set-up a website from scratch and also purchase and set up an FQDN as well generate the ssl certificate for allowing HTTPS requests, follow all the steps.  
 
 [Basic Overall Steps to follow that I abstracted from to compose this README](http://www.howto-expert.com/how-to-get-https-setting-up-ssl-on-your-website/)
 
