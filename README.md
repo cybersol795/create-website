@@ -171,7 +171,7 @@ admin@ip-172-31-72-60:~$ sudo apt-get install python-certbot-nginx -t stretch-ba
 Reading package lists... Done
 E: The value 'stretch-backports' is invalid for APT::Default-Release as such a release is not available in the sources
 ```
-Steps to Resolve:
+Steps to Resolve [[extracted from this page](https://backports.debian.org/Instructions/)]
 ```shell
 sudo bash -c 'echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list'
 sudo apt-get update
