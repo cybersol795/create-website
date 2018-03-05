@@ -114,15 +114,17 @@ sudo vim /etc/nginx/sites-available/default #Editing the Nginx virtual hosts fil
 # if the above file does not exist, run the following command to determine where the file has been installed on your machine
 sudo find / -name sites-available
 ```
+
+Entries to change in the file are marked accordingly
 ```
 server {
   listen 80 default_server;
   listen [::]:80 default_server;
   server_name _;
 
-  root /path/to/folder/that/contains/the/index
+  root /path/to/folder/that/contains/the/index <--- NEEDS TO BE UPDATED
 
-  index index.html index.htm index.nginx-debian.html;
+  index index.html index.htm index.nginx-debian.html; <-- the index file that is located in the folder stated above needs to be referenced here
 
   location / {
     try_files $uri $uri/ =404;
@@ -130,6 +132,8 @@ server {
 }
 }
 ```
+
+Commands to allow the changes to take effect
 ```shell
 sudo systemctl restart nginx #restarting nginx to allow changes to take effect
 systemctl status nginx #checking status of nginx
@@ -153,39 +157,7 @@ Here is the bare minimum you need to configure to be able to access your new web
 ![NameCheap DNS Configuration](Picture%205.jpg)
 
 
-## Step 4: Generate a CSR
-Steps were pulled off of this site: [Namecheap Documentation](https://www.namecheap.com/support/knowledgebase/article.aspx/467/67/how-do-i-generate-a-csr-code)  
-Specifically from this page: [NameCheap Documentation for AWS Instances](https://www.namecheap.com/support/knowledgebase/article.aspx/9592/0/aws)
-```shell
-sudo apt-get install -y openssl
-openssl genrsa 2048 > jasononline-private-key.pem
-openssl req -new -key jasononline-private-key.pem -out csr.pem
-```
-Example Input for csr.pem
-```shell
-admin@ip-172-31-44-4:~$ openssl req -new -key jasononline-private-key.pem -out csr.pem
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) [AU]:CA
-State or Province Name (full name) [Some-State]:British Columbia
-Locality Name (eg, city) []:Vancouver
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:NA
-Organizational Unit Name (eg, section) []:NA
-Common Name (e.g. server FQDN or YOUR name) []:jacemanshadi.ca
-Email Address []:###########@gmail.com
-
-Please enter the following 'extra' attributes
-to be sent with your certificate request
-A challenge password []:
-An optional company name []:  
-```
-
-## Step 5: Obtaining an SSL Certificate using Letsencrypt
+## Step 4: Obtaining an SSL Certificate using Letsencrypt
 *You will need to know the webroot for your site, the webroot is the directory that houses all the files and folders that are serviced to the web server [which in our case, is Nginx]. If you are unsure, please refer to the file path indicate on the nginx config file we modified earlier on in Step 2 that starts with the word "root"*
 Quick Way to determine the root:
 
@@ -208,13 +180,16 @@ sudo bash -c 'echo "deb http://ftp.debian.org/debian stretch-backports main" >> 
 sudo apt-get update
 ```
   
-## Step 7: Configuring ufw to allow HTTPS requests  
+## Step 5: Configuring ufw to allow HTTPS requests  
   
 ```shell
 sudo ufw allow "Nginx HTTPS"
 ```
 
-## Step 8: Configuring Nginx to redirect HTTP to HTTPS
+## Step 6: Configure the AWS Security Group to allow HTTPS requests
+![AWS Security Group Configuration](Picture%207.jpg)
+
+## Step 6: Configuring Nginx to redirect HTTP to HTTPS
 [Reference Page for Setting up HTTPS](https://www.digicert.com/csr-ssl-installation/nginx-openssl.htm)
 [Reference Page for redirecting HTTP to HTTPS](https://www.digitalocean.com/community/questions/best-way-to-configure-nginx-ssl-force-http-to-redirect-to-https-force-www-to-non-www-on-serverpilot-free-plan-by-using-nginx-configuration-file-only)
   
