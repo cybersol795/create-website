@@ -185,6 +185,28 @@ A challenge password []:
 An optional company name []:  
 ```
 
+## Step 5: Obtaining an SSL Certificate using Letsencrypt
+*You will need to know the webroot for your site, the webroot is the directory that houses all the files and folders that are serviced to the web server [which in our case, is Nginx]. If you are unsure, please refer to the file path indicate on the nginx config file we modified earlier on in Step 2 that starts with the word "root"*
+Quick Way to determine the root:
+
+```shell
+cat /etc/nginx/sites-available/default  | grep root
+```
+
+
+[Instructions available here](https://certbot.eff.org/)
+
+Known Issues and how to resolve them:
+```shell
+admin@ip-172-31-44-4:~$ sudo apt-get install python-certbot-nginx -t stretch-backports
+Reading package lists... Done
+E: The value 'stretch-backports' is invalid for APT::Default-Release as such a release is not available in the sources
+```
+Steps to Resolve:
+```shell
+sudo bash -c 'echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list'
+sudo apt-get update
+
 ## Step 5: Buy a Certificate
 You will need to shop for a certificate online, a common choice is namecheap, you can look at prices here: [https://www.namecheap.com/security/ssl-certificates.aspx](https://www.namecheap.com/security/ssl-certificates.aspx)  
   
