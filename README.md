@@ -1,6 +1,6 @@
 # Create-Website
 
-## Setting up a website from scratch using  
+## Setting up a website on a Debian machine from scratch using  
  * [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) and [optionally] [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
  * [Nginx](https://nginx.org/en/docs/) as Web-Server
  * Namecheap for domain purchasing
