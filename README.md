@@ -271,13 +271,13 @@ Nginx HTTPS (v6)           ALLOW       Anywhere (v6)
 ```
 
  Step 5.b: Configure the AWS Security Group to allow HTTPS requests
-![AWS Security Group Configuration](Picture%207.jpg)
+![AWS Security Group Configuration](Picture%205.jpg)
 
 
 If you are curious, you can take a look at the changes that `certbot` automatically did to your Nginx configuration file to [1] Implement the HTTP requests and [2] redirect HTTP request to HTTPS
-Below are some References Pages for HTTPS Configuration that the `cerbot` command automatically performed
-[Reference Page for Setting up HTTPS](https://www.digicert.com/csr-ssl-installation/nginx-openssl.htm)
-[Reference Page for redirecting HTTP to HTTPS](https://www.digitalocean.com/community/questions/best-way-to-configure-nginx-ssl-force-http-to-redirect-to-https-force-www-to-non-www-on-serverpilot-free-plan-by-using-nginx-configuration-file-only)
+Below are some References Pages for HTTPS Configuration that the `cerbot` command automatically performed  
+[Reference Page for Setting up HTTPS](https://www.digicert.com/csr-ssl-installation/nginx-openssl.htm)  
+[Reference Page for redirecting HTTP to HTTPS](https://www.digitalocean.com/community/questions/best-way-to-configure-nginx-ssl-force-http-to-redirect-to-https-force-www-to-non-www-on-serverpilot-free-plan-by-using-nginx-configuration-file-only)  
 
 [Nginx Reference Page](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04)  
 UFW Reference Pages  
