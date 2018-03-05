@@ -149,6 +149,8 @@ Two popular places to buy a domain name from are Namecheap and GoDaddy. More opt
 ### Step 3.c: Register the IP of your instance with the domain name you just purchased.  
 *Please note that after this step, it may take a while for it to work as you will have to wait for [1] Namecheap to register the I.P. address that you gave it with the domain you purchased as well as [2] waiting for the DNS that your computer queries to determine the IP address associated with a domain to be updated to reflect the change. Step 2 may take a while [up to an hour] just based on how the DNS that your computer qwueries has been set-up to refresh its cache.*  
   
+Here is the bare minimum you need to configure to be able to access your new website via NameCheap
+![NameCheap DNS Configuration](Picture%205.jpg)
 
 
 ## Step 4: Generate a CSR
