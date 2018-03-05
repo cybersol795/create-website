@@ -111,10 +111,13 @@ You will need to edit a file called the Nginx virtual hosts file. We will be edi
 
 To determine other fun stuff you can do with the nginx virtual hosts file, feel free to refer to the [offical nginx documentation](https://nginx.org/en/docs/)    
 
+Editing the Nginx virtual hosts file
 ```shell
-sudo vim /etc/nginx/sites-available/default #Editing the Nginx virtual hosts file
+sudo vim /etc/nginx/sites-available/default
+```
 
-# if the above file does not exist, run the following command to determine where the file has been installed on your machine
+if the above file does not exist, run the following command to determine where the file has been installed on your machine
+```shell
 sudo find / -name sites-available
 ```
 
@@ -162,14 +165,14 @@ Here is the bare minimum you need to configure to be able to access your new web
 
 ## Step 4: Obtaining an SSL Certificate using Letsencrypt
 *You will need to know the webroot for your site, the webroot is the directory that houses all the files and folders that are serviced to the web server [which in our case, is Nginx]. If you are unsure, please refer to the file path indicate on the nginx config file we modified earlier on in Step 2 that starts with the word "root"*
-Quick Way to determine the root:
+Quick way to determine the root:
 
 ```shell
 cat /etc/nginx/sites-available/default  | grep root
 ```
 
 
-[Instructions available here](https://certbot.eff.org/)
+[Instructions on obtaining SSL Cert using LetsEncrypt are available here](https://certbot.eff.org/)
 
 Known Issues and how to resolve them:
 ```shell
@@ -183,61 +186,97 @@ sudo bash -c 'echo "deb http://ftp.debian.org/debian stretch-backports main" >> 
 sudo apt-get update
 ```
   
-## Step 5: Configuring ufw to allow HTTPS requests  
+Example of how to run the command:
+```shell
+admin@ip-172-31-42-10:~$ sudo certbot --authenticator webroot --installer nginx
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator webroot, Installer nginx
+Enter email address (used for urgent renewal and security notices) (Enter 'c' to
+cancel):    
+Invalid email address: ###########@gmail.com
+Enter email address (used for urgent renewal and security notices)
+
+-------------------------------------------------------------------------------
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
+agree in order to register with the ACME server at
+https://acme-v01.api.letsencrypt.org/directory
+-------------------------------------------------------------------------------
+(A)gree/(C)ancel: A
+
+-------------------------------------------------------------------------------
+Would you be willing to share your email address with the Electronic Frontier
+Foundation, a founding partner of the Let's Encrypt project and the non-profit
+organization that develops Certbot? We'd like to send you email about EFF and
+our work to encrypt the web, protect its users and defend digital rights.
+-------------------------------------------------------------------------------
+(Y)es/(N)o: N
+No names were found in your configuration files. Please enter in your domain
+name(s) (comma and/or space separated)  (Enter 'c' to cancel): jacemanshadi.ca
+Obtaining a new certificate
+Performing the following challenges:
+http-01 challenge for jacemanshadi.ca
+Input the webroot for jacemanshadi.ca: (Enter 'c' to cancel): /var/www/html
+Waiting for verification...
+Cleaning up challenges
+Deployed Certificate to VirtualHost /etc/nginx/sites-enabled/default for jacemanshadi.ca
+
+Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+-------------------------------------------------------------------------------
+1: No redirect - Make no further changes to the webserver configuration.
+2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
+new sites, or if you're confident your site works on HTTPS. You can undo this
+change by editing your web server's configuration.
+-------------------------------------------------------------------------------
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 2
+Redirecting all traffic on port 80 to ssl in /etc/nginx/sites-enabled/default
+
+-------------------------------------------------------------------------------
+Congratulations! You have successfully enabled https://jacemanshadi.ca
+
+You should test your configuration at:
+https://www.ssllabs.com/ssltest/analyze.html?d=jacemanshadi.ca
+-------------------------------------------------------------------------------
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/jacemanshadi.ca/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/jacemanshadi.ca/privkey.pem
+   Your cert will expire on 2018-06-03. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot again
+   with the "certonly" option. To non-interactively renew *all* of
+   your certificates, run "certbot renew"
+ - Your account credentials have been saved in your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+```
+
+## Step 5: Changes to allow HTTPS requests
+
+ Step 5.a: Configuring ufw to allow HTTPS requests  
   
 ```shell
 sudo ufw allow "Nginx HTTPS"
 ```
 
-## Step 6: Configure the AWS Security Group to allow HTTPS requests
+ Step 5.b: Configure the AWS Security Group to allow HTTPS requests
 ![AWS Security Group Configuration](Picture%207.jpg)
 
-## Step 6: Configuring Nginx to redirect HTTP to HTTPS
+
+If you are curious, you can take a look at the changes that `certbot` automatically did to your Nginx configuration file to [1] Implement the HTTP requests and [2] redirect HTTP request to HTTPS
+Below are some References Pages for HTTPS Configuration that the `cerbot` command automatically performed
 [Reference Page for Setting up HTTPS](https://www.digicert.com/csr-ssl-installation/nginx-openssl.htm)
 [Reference Page for redirecting HTTP to HTTPS](https://www.digitalocean.com/community/questions/best-way-to-configure-nginx-ssl-force-http-to-redirect-to-https-force-www-to-non-www-on-serverpilot-free-plan-by-using-nginx-configuration-file-only)
-  
-### Commands
-  
-You will need to edit a file called the Nginx virtual hosts file. We will be editing this file in order to instruct nginx as to  
- * What is the port to listen on, port 80 is for HTTP and port 443 is for HTTPS. In this step, we will use both as we will setup the server to automatically redirect any HTTP requests to HTTPS
- * Specifying the locations of the ssl_certificate and the ssl_certificate_key [this is needed in order to allow the server to accept HTTPS requests]  
-  
-To determine other fun stuff you can do with the nginx virtual hosts file, feel free to refer to the [offical nginx documentation]()  
 
-```shell
-sudo vim /etc/nginx/sites-available/default #Editing the Nginx virtual hosts file
-
-##if the above file does not exist, run the following command to determine where the file has been installed on your machine
-sudo find / -name sites-available
-```
-```
-server {
-  listen 80 default_server;
-  listen [::]:80 default_server;
-  server_name _;
-  return 301 https://jasononline.ca$request_uri;
-}
-
-server {
-  listen 443 default_server;
-  listen [::];443 default_server;
-  root /path/to/folder/that/contains/the/index
-  index index.html index.htm index.nginx-debian.html;
-
-  ssl  on;
-  ssl_certificate  /etc/ssl/jasononline_ca.crt;
-  ssl_certificate_key  /etc/ssl/jasononline-private-key.pm;
-  server_name _;
-  location / {
-    try_files $uri $uri/ =404;
-  }
-}
-```
-```shell
-sudo systemctl restart nginx #restarting nginx to allow changes to take effect
-systemctl status nginx #checking status of nginx
-```
 [Nginx Reference Page](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04)  
 UFW Reference Pages  
  * [Ubuntu](https://help.ubuntu.com/community/UFW)  
- * [Debian](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29)  
+ * [Debian](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29)
