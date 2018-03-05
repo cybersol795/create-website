@@ -1,7 +1,14 @@
-# Setting up a website from scratch to use HTTPS with Nginx as a Web-server, Namecheap for domain purchasing and letsencrypt for ssl certificate
-  
- * To set-up a website from scratch to without having to make any purchases [except for the server that will host your website], follow Steps 1 and 2. This will leave you with only an IP address and not FQDN [ie google.com, amazon.ca, etc] to access your website  
- * To set-up a website from scratch and also purcahse and set up an FQDN, follow Steps 1, 2 and 3  
+# Create-Website
+
+## Setting up a website from scartch using  
+ * HTTP and HTTPS
+ * Nginx as Web-Server
+ * Namecheap for domain purchasing
+ * Letsencrypt for SSL Certificate
+
+## Objectives  
+ * To set-up a website from scratch to without having to make any purchases [except for the server that will host your website], follow Steps 1 and 2. This will leave you with only an IP address and no FQDN [ie google.com, amazon.ca, etc] to access your website  
+ * To set-up a website from scratch and also purchase and set up an FQDN, follow Steps 1, 2 and 3  
  * To set-up a website from scartch and also purchase and set up an FQDN as well as buy and configure the ssl certificate for allowing HTTPS requests, follow all the steps.  
 
 [Basic Overall Steps to follow that I abstracted from to compose this README](http://www.howto-expert.com/how-to-get-https-setting-up-ssl-on-your-website/)
@@ -12,19 +19,67 @@ Prereq questions you may have:
  * [What is ufw?](https://wiki.debian.org/Uncomplicated%20Firewall%20%28ufw%29)  
 
 ```shell
-apt-get install -y nginx #installing nginx
+# Installing Nginx and UFW
+sudo apt-get install -y nginx ufw
 
 # ensuring that the server will allow HTTP requests
-sudo ufw allow "Nginx HTTP"
+admin@ip-172-31-42-185:~$ sudo ufw allow "Nginx HTTP"
+Rules updated
+Rules updated (v6)
+
 
 # ensuring that the server will allow ssh connections
-sudo ufw allow ssh
+admin@ip-172-31-42-185:~$ sudo ufw allow ssh
+Rules updated
+Rules updated (v6)
+
+# Enable UFW on Server
+admin@ip-172-31-78-96:~$ sudo systemctl start ufw
+admin@ip-172-31-44-4:~$ sudo systemctl status ufw
+● ufw.service - Uncomplicated firewall
+   Loaded: loaded (/lib/systemd/system/ufw.service; enabled; vendor preset: enabled)
+   Active: active (exited) since Mon 2018-03-05 05:32:31 UTC; 7s ago
+     Docs: man:ufw(8)
+  Process: 9583 ExecStart=/lib/ufw/ufw-init start quiet (code=exited, status=0/SUCCESS)
+ Main PID: 9583 (code=exited, status=0/SUCCESS)
+
+Mar 05 05:32:31 ip-172-31-44-4 systemd[1]: Starting Uncomplicated firewall...
+Mar 05 05:32:31 ip-172-31-44-4 systemd[1]: Started Uncomplicated firewall.
+
+admin@ip-172-31-44-4:~$ sudo ufw enable
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
 
 # ensuring that the rules we wanted are implemented
-sudo ufw status
+admin@ip-172-31-44-4:~$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+Nginx HTTP                 ALLOW       Anywhere                  
+22/tcp                     ALLOW       Anywhere                  
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)             
+22/tcp (v6)                ALLOW       Anywhere (v6)                      
 
 # determining status of nginx
-systemctl status nginx
+admin@ip-172-31-44-4:~$ systemctl status nginx
+● nginx.service - A high performance web server and a reverse proxy server
+   Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+   Active: active (running) since Mon 2018-03-05 05:31:36 UTC; 2min 9s ago
+     Docs: man:nginx(8)
+  Process: 9520 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+  Process: 9518 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+ Main PID: 9522 (nginx)
+    Tasks: 2 (limit: 4915)
+   CGroup: /system.slice/nginx.service
+           ├─9522 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+           └─9523 nginx: worker process
+
+Mar 05 05:31:36 ip-172-31-44-4 systemd[1]: Starting A high performance web server and a reverse proxy server...
+Mar 05 05:31:36 ip-172-31-44-4 systemd[1]: nginx.service: Failed to read PID from file /run/nginx.pid: Invalid argument
+Mar 05 05:31:36 ip-172-31-44-4 systemd[1]: Started A high performance web server and a reverse proxy server.
+
+
 
 # starting nginx program if it is not already started
 sudo systemctl start nginx
