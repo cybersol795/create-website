@@ -99,11 +99,11 @@ Please note that AWS provides an extra layer of protection for any instances[aka
 
   1.a.III. Click on the Security Group indicated on the box ![Selecting Security Group](Picture%202.png)  
   
-  1.a.IV. Make sure that the rules listed under the "Inbound" Tabs include the ones in the picture here. If not, please add them exactly as shown. ![Inbound Rules](Picture%203.png)  
+  1.a.IV. Make sure that the rules listed under the "Inbound" Tabs include the ones in the picture here. If not, please add them exactly as shown. ![Inbound Rules](Picture%203.jpg)  
 
 ## Step 2: Configuring Nginx  
 You will need to edit a file called the Nginx virtual hosts file. We will be editing this file in order to instruct nginx as to  
- * What is the folder that contains our index.html that we want to be displayed to the end-user
+ * What is the folder that contains the index.html that we want to be displayed to the end-user
  * What is the port to listen on, port 80 is for HTTP and port 443 is for HTTPS. In this step, we will set up only port 80 for HTTPS
 
 To determine other fun stuff you can do with the nginx virtual hosts file, feel free to refer to the [offical nginx documentation](https://nginx.org/en/docs/)    
@@ -135,6 +135,8 @@ sudo systemctl restart nginx #restarting nginx to allow changes to take effect
 systemctl status nginx #checking status of nginx
 ```
 
+You can now access the webpage at the Public IP/DNS of your machine which can be found on AWS like so:
+![Public IP/DNS Name](Picture%204.jpg)  
   
 ## Step 3: Buying a domain
 This section just requires you to buy a FQDN [Fully Qualified Domain Name] such as google.com, amazon.ca, reddit.com, etc.  
