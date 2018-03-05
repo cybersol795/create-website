@@ -1,10 +1,10 @@
 # Create-Website
 
-## Setting up a website from scartch using  
- * HTTP and [optionally] HTTPS
- * Nginx as Web-Server
+## Setting up a website from scratch using  
+ * [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) and [optionally] [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
+ * [Nginx](https://nginx.org/en/docs/) as Web-Server
  * Namecheap for domain purchasing
- * Letsencrypt for SSL Certificate
+ * [Letsencrypt](https://letsencrypt.org/) for SSL Certificate
 
 ## Objectives  
  * To set-up a website from scratch to without having to make any purchases [except for the server that will host your website], follow Steps 1 and 2. This will leave you with only an IP address and no FQDN [ie google.com, amazon.ca, etc] to access your website  
@@ -206,12 +206,7 @@ Steps to Resolve:
 ```shell
 sudo bash -c 'echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list'
 sudo apt-get update
-
-## Step 5: Buy a Certificate
-You will need to shop for a certificate online, a common choice is namecheap, you can look at prices here: [https://www.namecheap.com/security/ssl-certificates.aspx](https://www.namecheap.com/security/ssl-certificates.aspx)  
-  
-## Step 6: Activating/Installing the Certificate
-[Instructions from Namecheap for how to complete the domain control validation (DCV) for my SSL certificate](https://www.namecheap.com/support/knowledgebase/article.aspx/9637/68/how-can-i-complete-the-domain-control-validation-dcv-for-my-ssl-certificate)  
+```
   
 ## Step 7: Configuring ufw to allow HTTPS requests  
   
