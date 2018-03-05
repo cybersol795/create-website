@@ -1,7 +1,7 @@
 # Create-Website
 
 ## Setting up a website from scartch using  
- * HTTP and HTTPS
+ * HTTP and [optionally] HTTPS
  * Nginx as Web-Server
  * Namecheap for domain purchasing
  * Letsencrypt for SSL Certificate
@@ -142,11 +142,11 @@ You can now access the webpage at the Public IP/DNS of your machine which can be
 This section just requires you to buy a FQDN [Fully Qualified Domain Name] such as google.com, amazon.ca, reddit.com, etc.  
 Two popular places to buy a domain name from are Namecheap and GoDaddy. More options are available [here](https://en.wikipedia.org/wiki/Category:Domain_registrars) and by googling "buy domain name"  
   
-### Step 3.a: Looking for available domain
+  Step 3.a: Looking for available domain
   
-### Step 3.b: Purchase the domain and any add-ons you may want.  
+  Step 3.b: Purchase the domain and any add-ons you may want.  
   
-### Step 3.c: Register the IP of your instance with the domain name you just purchased.  
+  Step 3.c: Register the IP of your instance with the domain name you just purchased.  
 *Please note that after this step, it may take a while for it to work as you will have to wait for [1] Namecheap to register the I.P. address that you gave it with the domain you purchased as well as [2] waiting for the DNS that your computer queries to determine the IP address associated with a domain to be updated to reflect the change. Step 2 may take a while [up to an hour] just based on how the DNS that your computer qwueries has been set-up to refresh its cache.*  
   
 Here is the bare minimum you need to configure to be able to access your new website via NameCheap
@@ -160,6 +160,29 @@ Specifically from this page: [NameCheap Documentation for AWS Instances](https:/
 sudo apt-get install -y openssl
 openssl genrsa 2048 > jasononline-private-key.pem
 openssl req -new -key jasononline-private-key.pem -out csr.pem
+```
+Example Input for csr.pem
+```shell
+admin@ip-172-31-44-4:~$ openssl req -new -key jasononline-private-key.pem -out csr.pem
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:CA
+State or Province Name (full name) [Some-State]:British Columbia
+Locality Name (eg, city) []:Vancouver
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:NA
+Organizational Unit Name (eg, section) []:NA
+Common Name (e.g. server FQDN or YOUR name) []:jacemanshadi.ca
+Email Address []:###########@gmail.com
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:  
 ```
 
 ## Step 5: Buy a Certificate
