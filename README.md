@@ -273,6 +273,17 @@ Nginx HTTPS (v6)           ALLOW       Anywhere (v6)
  Step 5.b: Configure the AWS Security Group to allow HTTPS requests
 ![AWS Security Group Configuration](Picture%205.jpg)
 
+## Step 6: Makinng changes to your site  
+  
+You can now start actually working on the contents of your website!  
+You can either modify the provided index that nginx set up for you located at the root folderyou determined in (Step 4)[https://github.com/modernNeo/create-website#step-4-obtaining-an-ssl-certificate-using-letsencrypt], or you can place your root folder elsewhere and redirect nginx there by changing the folder assigned to "root" in /etc/nginx/sites-available/default and then restarting nginx.
+
+Commands to allow the changes to take effect
+```shell
+sudo systemctl restart nginx #restarting nginx to allow changes to take effect
+systemctl status nginx #checking status of nginx
+```
+
 
 If you are curious, you can take a look at the changes that `certbot` automatically did to your Nginx configuration file to [1] Implement the HTTP requests and [2] redirect HTTP request to HTTPS
 Below are some References Pages for HTTPS Configuration that the `cerbot` command automatically performed  
