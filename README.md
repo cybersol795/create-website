@@ -1,6 +1,6 @@
 # Create-Website
 
-## Setting up a website from scratch using  
+## Setting up a website on a Debian machine from scratch using  
  * [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) and [optionally] [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
  * [Nginx](https://nginx.org/en/docs/) as Web-Server
  * Namecheap for domain purchasing
@@ -91,7 +91,7 @@ Please note that AWS provides an extra layer of protection for any instances[aka
   
   1.a.I. [Go to AWS Console](https://console.aws.amazon.com/ec2)  
 
-  1.a.II. Select the Instance you are setting the website on and click on the Security Group indicated in the box ![Selecting Instance](Picture%201.jpg)  
+  1.a.II. Select the Instance you are setting the website on and click on the Security Group indicated in the box ![Selecting Instance](Picture%201.png)  
 
   1.a.III. Make sure that the rules listed under the "Inbound" Tabs include the ones in the picture here. If not, please add them exactly as shown. ![Inbound Rules](Picture%202.jpg)  
 
@@ -137,7 +137,7 @@ systemctl status nginx #checking status of nginx
 ```
 
 You can now access the webpage at the Public IP/DNS of your machine which can be found on AWS like so:
-![Public IP/DNS Name](Picture%203.jpg)  
+![Public IP/DNS Name](Picture%203.png)  
   
 ## Step 3: Buying a domain
 This section just requires you to buy a FQDN [Fully Qualified Domain Name] such as google.com, amazon.ca, reddit.com, etc.  
